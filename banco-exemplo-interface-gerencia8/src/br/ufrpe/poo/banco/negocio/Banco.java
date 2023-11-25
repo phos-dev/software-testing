@@ -98,7 +98,7 @@ public class Banco implements IGerencia, ICliente {
 		Cliente cliente = this.procurarCliente(cpf);
 		if (cliente != null) {
 			ContaAbstrata conta = procurarConta(numeroConta);
-			if (conta == null) {
+			if (conta != null) {
 				cliente.adicionarConta(numeroConta);
 				this.clientes.atualizar(cliente);
 			} else

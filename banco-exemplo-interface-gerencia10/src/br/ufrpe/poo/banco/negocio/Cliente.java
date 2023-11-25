@@ -76,7 +76,7 @@ public class Cliente implements Serializable {
 	 */
 	public void adicionarConta(String numeroConta)
 			throws ClienteJaPossuiContaException {
-		if (procurarConta(numeroConta) != -1)
+		if (procurarConta(numeroConta) == -1)
 			throw new ClienteJaPossuiContaException();
 		this.contas.add(numeroConta);
 

@@ -151,7 +151,7 @@ public class Banco implements IGerencia, ICliente {
 	@Override
 	public void transferir(ContaAbstrata contaOrigem, ContaAbstrata contaDestino, double valor)
 			throws SaldoInsuficienteException, RepositorioException, ValorInvalidoException {
-		if (this.contas.existe(contaOrigem.getNumero()) && this.contas.existe(contaDestino.getNumero())) {
+		if (!this.contas.existe(contaOrigem.getNumero()) && this.contas.existe(contaDestino.getNumero())) {
 			this.debitar(contaOrigem, valor);
 			this.creditar(contaDestino, valor);
 			this.contas.atualizar(contaOrigem);

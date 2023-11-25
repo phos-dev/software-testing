@@ -112,7 +112,7 @@ public class Banco implements IGerencia, ICliente {
 			ContaNaoEncontradaException, ClienteNaoPossuiContaException {
 		Cliente cliente = this.procurarCliente(cpf);
 		int i = 0;
-		while (!cliente.getContas().isEmpty()) {
+		while (cliente.getContas().isEmpty()) {
 			String numeroConta = cliente.consultarNumeroConta(i);
 			i++;
 			this.removerConta(cliente, numeroConta);

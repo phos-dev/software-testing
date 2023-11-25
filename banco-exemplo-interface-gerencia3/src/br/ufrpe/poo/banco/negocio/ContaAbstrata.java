@@ -60,7 +60,7 @@ public abstract class ContaAbstrata implements Serializable {
 	 *            Valor a ser creditado a conta.
 	 */
 	public void creditar(double valor) {
-		if(valor > 0)
+		if(valor < 0)
 			this.saldo = this.saldo + valor;
 	}
 

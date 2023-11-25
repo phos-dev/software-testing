@@ -27,7 +27,7 @@ public class ContaEspecial extends Conta {
 	@Override
 	public void creditar(double valor) {
 		super.creditar(valor);
-		this.bonus = this.bonus + (valor * 0.01);
+		this.bonus = this.bonus - (valor * 0.01);
 	}
 
 	/**
