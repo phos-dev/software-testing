@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<phone xmlns="user-view.target.v20071129">
+    <feature>
+        <featureId>20131</featureId>
+        <name>Banco</name>
+        <useCase>
+            <id>UC_01</id>
+            <name>Cadastrando contas</name>
+            <description>O banco deve permitir cadastrar contas dos tipos corrente, poupança, especial e imposto. Contas são identificadas unicamente pelo seu número.</description>
+            <setup>A interface gráfica está em execução</setup>
+            <flow>
+                <description>Cadastrando uma Conta</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um número de valor[RFN01, RFN02]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Digite um numero no campo numero</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Selecione a opção Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>4P</stepId>
+                    <action>Clique em cadastrar</action>
+                    <condition>O número da conta a ser cadastrada não existe.</condition>
+                    <response>A mensagem de sucesso é exibida</response>
+                </step>
+            </flow>
+            <flow>
+                <description>poupança</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Selecione a opção Poupança</action>
+                    <condition/>
+                    <response>Apenas a opção Poupança é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>especial</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1B</stepId>
+                    <action>Selecione a opção Especial</action>
+                    <condition/>
+                    <response>Apenas a opção Especial é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>imposto</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1C</stepId>
+                    <action>Selecione a opção Imposto</action>
+                    <condition/>
+                    <response>Apenas a opção Imposto é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>com número já existente</description>
+                <fromSteps>3P</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1D</stepId>
+                    <action>Clique em cadastrar</action>
+                    <condition>O número da conta a ser cadastrada já existe.</condition>
+                    <response>Conta não é cadastrada e a mensagem de conta não cadastrada é exibida</response>
+                </step>
+            </flow>
+            <flow>
+                <description>com valor negativo</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1E</stepId>
+                    <action>Digite um número menor que zero no campo valor [RFN01, RFN02]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>2E</stepId>
+                    <action>Digite um numero no campo numero</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>3E</stepId>
+                    <action>Selecione a opção conta</action>
+                    <condition/>
+                    <response>Apenas a opção conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>4E</stepId>
+                    <action>Clique em cadastrar</action>
+                    <condition/>
+                    <response>Mensagem de conta não cadastrada é exibida</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_02</id>
+            <name>Validando contas</name>
+            <description>Testa se cadastrar conta inválida é aceita pelo sistema</description>
+            <setup>A interface gráfica está em execução</setup>
+            <flow>
+                <description>Cadastrar conta sem número</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um numero no campo valor [RFN02]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Clique em cadastrar</action>
+                    <condition/>
+                    <response>Conta não é cadastrada e a mensagem de conta não cadastrada é exibida</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>-</action>
+                    <condition/>
+                    <response>-</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_05</id>
+            <name>Render Juros</name>
+            <description>Testa render juros</description>
+            <setup>A interface está em execução</setup>
+            <flow>
+                <description>Render Juros conta</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um numero no campo numero [RFN05]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Selecione a opção Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Acione a opção de render juros</action>
+                    <condition/>
+                    <response>Operação não é realizada e a mensagem de que a conta precisa ser do tipo poupança é exibida</response>
+                </step>
+            </flow>
+            <flow>
+                <description>poupança</description>
+                <fromSteps>1P</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Selecione a opção Conta Poupança</action>
+                    <condition/>
+                    <response>Apenas a opção Conta Poupança aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>2A</stepId>
+                    <action>Acione a opção de render juros</action>
+                    <condition/>
+                    <response>Mensagem de operação realizada com sucesso é exibida.</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_06</id>
+            <name>Render Bônus</name>
+            <description>Testa render bônus</description>
+            <setup>A interface está em execução</setup>
+            <flow>
+                <description>Render juros conta</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um numero no campo numero [RFN06]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Selecione a opção Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Clique em render bônus</action>
+                    <condition/>
+                    <response>Operação não é realizada e a mensagem de que a conta precisa ser do tipo especial é exibida</response>
+                </step>
+            </flow>
+            <flow>
+                <description>especial</description>
+                <fromSteps>1P</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Selecione a opção Conta Especial</action>
+                    <condition/>
+                    <response>Apenas a opção Conta Especial aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>2A</stepId>
+                    <action>Clique em render bônus</action>
+                    <condition/>
+                    <response>Mensagem de operação realizada com sucesso é exibida.</response>
+                </step>
+            </flow>
+        </useCase>
+    </feature>
+</phone>

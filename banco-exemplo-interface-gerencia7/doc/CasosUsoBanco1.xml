@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<phone xmlns="user-view.target.v20071129">
+    <feature>
+        <featureId>20132</featureId>
+        <name>banco</name>
+        <useCase>
+            <id>UC_01</id>
+            <name>Creditando em conta</name>
+            <description>O banco deve permitir cadastrar contas dos tipos corrente, poupança, especial e imposto. Contas são identificadas unicamente pelo seu número.</description>
+            <setup>A interface gráfica está em execução</setup>
+            <flow>
+                <description>Creditando em uma Conta</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um número de conta [RFN04]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Digite um numero no campo valor</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Selecione a opção conta</action>
+                    <condition/>
+                    <response>Apenas a opção conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>4P</stepId>
+                    <action>Clique no botão Creditar</action>
+                    <condition/>
+                    <response>Uma mensagem informa que o crédito foi executado com sucesso</response>
+                </step>
+            </flow>
+            <flow>
+                <description>poupança</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Selecione a opção conta poupança</action>
+                    <condition/>
+                    <response>Apenas a opção conta poupança aparece selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>especial</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1B</stepId>
+                    <action>Selecione a opção especial</action>
+                    <condition/>
+                    <response>Apenas a opção especial é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>imposto</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1C</stepId>
+                    <action>Selecione a opção imposto</action>
+                    <condition/>
+                    <response>Apenas a opção imposto é selecionada</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_03</id>
+            <name>Transferir valor entre contas</name>
+            <description>As contas do banco devem continuar válidas</description>
+            <setup>A interface está em execução</setup>
+            <flow>
+                <description>Verificando saldo não negativo após transferência</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um número de conta de Origem no campo número[RFN03,RFN08]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Digite um numero menor ou igual ao saldo no campo valor</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Selecione o tipo Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>4P</stepId>
+                    <action>Acione a opção de transferir</action>
+                    <condition>Já existem duas contas cadastradas</condition>
+                    <response>Exibe um popup solicitando o número da conta destino</response>
+                </step>
+                <step>
+                    <stepId>5P</stepId>
+                    <action>Digite o número da conta destino</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo número</response>
+                </step>
+                <step>
+                    <stepId>6P</stepId>
+                    <action>Confirme operação</action>
+                    <condition/>
+                    <response>Mensagem do Sistema, informando que a operação foi concluída com sucesso</response>
+                </step>
+            </flow>
+            <flow>
+                <description>conta</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Selecione a opção Poupança</action>
+                    <condition/>
+                    <response>Apenas a opção Poupança é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>especial</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1B</stepId>
+                    <action>Selecione a opção Especial</action>
+                    <condition/>
+                    <response>Apenas a opção Especial é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>imposto</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1C</stepId>
+                    <action>Selecione a opção Imposto</action>
+                    <condition/>
+                    <response>Apenas a opção Imposto é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>Insuficiência de saldo</description>
+                <fromSteps>1P</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1D</stepId>
+                    <action>Digite um numero maior do que o saldo no campo valor[RFN02]</action>
+                    <condition>O saldo é inferior ao número digitado no campo valor</condition>
+                    <response>A transferência não é realizada e uma mensagem de saldo insuficiente é exibida</response>
+                </step>
+                <step>
+                    <stepId>2D</stepId>
+                    <action>Confirme operação</action>
+                    <condition/>
+                    <response>Fecha o popup</response>
+                </step>
+            </flow>
+            <flow>
+                <description>com 100 contas já cadastradas, testando se o tempo de resposta não ultrapassa 1 segundo</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1E</stepId>
+                    <action>Executar programa auxiliar de gravação de tela</action>
+                    <condition>Sistema de banco está minimizado</condition>
+                    <response>O programa auxiliar é executado</response>
+                </step>
+                <step>
+                    <stepId>2E</stepId>
+                    <action>Configurar no programa auxiliar de gravação de tela para 60fps</action>
+                    <condition/>
+                    <response>Configuração é exibida</response>
+                </step>
+                <step>
+                    <stepId>3E</stepId>
+                    <action>Acionar gravação e minimizar programa</action>
+                    <condition/>
+                    <response>Gravação é iniciada e programa minimizada</response>
+                </step>
+                <step>
+                    <stepId>4E</stepId>
+                    <action>Digite um número de conta de origem no campo número[RNF01]</action>
+                    <condition>Interface do sistema de banco está em execução</condition>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>5E</stepId>
+                    <action>Digite um número de conta de origem no campo valor</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>6E</stepId>
+                    <action>Selecione o tipo Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta é selecionada</response>
+                </step>
+                <step>
+                    <stepId>7E</stepId>
+                    <action>Acione a opção transferir</action>
+                    <condition>Já existem 100 contas cadastradas</condition>
+                    <response>Exibe um popup solicitando o número da conta destino</response>
+                </step>
+                <step>
+                    <stepId>8E</stepId>
+                    <action>Digite o número de conta para conta destino e confirme</action>
+                    <condition/>
+                    <response>Mensagem do sistema, informando que a operação foi concluída com sucesso</response>
+                </step>
+                <step>
+                    <stepId>9E</stepId>
+                    <action>Confirme operação</action>
+                    <condition/>
+                    <response>Fecha o popup</response>
+                </step>
+                <step>
+                    <stepId>10E</stepId>
+                    <action>Minimizar programa do banco e maximizar programa auxiliar de gravação de tela</action>
+                    <condition/>
+                    <response>Programa de gravação auxiliar é exibido</response>
+                </step>
+                <step>
+                    <stepId>11E</stepId>
+                    <action>Parar gravação</action>
+                    <condition/>
+                    <response>Gravação é parada</response>
+                </step>
+                <step>
+                    <stepId>12E</stepId>
+                    <action>Executar gravação e checar se o número de frames entre o passo 8E e 9E não ultrapassa 60</action>
+                    <condition/>
+                    <response>Se maior que 60, teste falhou. Se menor, teste passou.</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_04</id>
+            <name>Debitando um valor em uma conta</name>
+            <description>Debitando um valor em uma conta</description>
+            <setup>A interface gráfica está em execução</setup>
+            <flow>
+                <description>Debitando em uma conta</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um número no campo numero [RFN04,RFN03]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Digite um numero menor ou igual ao saldo no campo valor</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>3P</stepId>
+                    <action>Selecione a opção Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta aparece selecionada</response>
+                </step>
+                <step>
+                    <stepId>4P</stepId>
+                    <action>Acione a opção debitar</action>
+                    <condition/>
+                    <response>Uma mensagem informa que o débito foi executado com sucesso</response>
+                </step>
+                <step>
+                    <stepId>5P</stepId>
+                    <action>Confirme operação</action>
+                    <condition/>
+                    <response>O Popup fecha</response>
+                </step>
+            </flow>
+            <flow>
+                <description>Saldo Insuficiente</description>
+                <fromSteps>1P</fromSteps>
+                <toSteps>5P</toSteps>
+                <step>
+                    <stepId>1A</stepId>
+                    <action>Digite um numero maior que o saldo no campo valor</action>
+                    <condition/>
+                    <response>A ação de debitar é cancelada e um popup de erro informará que o saldo não foi suficiente</response>
+                </step>
+            </flow>
+            <flow>
+                <description>especial</description>
+                <fromSteps>2P</fromSteps>
+                <toSteps>4P</toSteps>
+                <step>
+                    <stepId>1B</stepId>
+                    <action>Selecione a opção Especial</action>
+                    <condition/>
+                    <response>Apenas a opção Especial é selecionada</response>
+                </step>
+            </flow>
+            <flow>
+                <description>imposto</description>
+                <fromSteps>1P</fromSteps>
+                <toSteps>5P</toSteps>
+                <step>
+                    <stepId>1C</stepId>
+                    <action>Digite 10 no campo valor [RFN07]</action>
+                    <condition>O saldo da conta é maior que 11</condition>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>2C</stepId>
+                    <action>Selecione a opção Imposto</action>
+                    <condition/>
+                    <response>Apenas a opção Imposto é selecionada</response>
+                </step>
+                <step>
+                    <stepId>3C</stepId>
+                    <action>Clique em debitar</action>
+                    <condition/>
+                    <response>O valor 10.038 é debitado e mensagem de sucesso é exibida</response>
+                </step>
+            </flow>
+            <flow>
+                <description>com número inexistente</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>5P</toSteps>
+                <step>
+                    <stepId>1D</stepId>
+                    <action>Digite um número no campo numero [RFN04,RFN03]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2D</stepId>
+                    <action>Digite um número no campo valor</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo valor</response>
+                </step>
+                <step>
+                    <stepId>3D</stepId>
+                    <action>Selecione a opção Conta</action>
+                    <condition/>
+                    <response>Apenas a opção Conta é selecionada</response>
+                </step>
+                <step>
+                    <stepId>4D</stepId>
+                    <action>Clique em debitar</action>
+                    <condition>Conta não está cadastrada</condition>
+                    <response>Débito não é feito e mensagem de erro é exibida</response>
+                </step>
+            </flow>
+        </useCase>
+        <useCase>
+            <id>UC_07</id>
+            <name>Checando saldo</name>
+            <description>Testa operação de saldo</description>
+            <setup>A interface está em execução</setup>
+            <flow>
+                <description>Checando saldo</description>
+                <fromSteps>START</fromSteps>
+                <toSteps>END</toSteps>
+                <step>
+                    <stepId>1P</stepId>
+                    <action>Digite um número de conta [RFN04]</action>
+                    <condition/>
+                    <response>O número digitado aparece no campo numero</response>
+                </step>
+                <step>
+                    <stepId>2P</stepId>
+                    <action>Clica no botão saldo</action>
+                    <condition>Número da conta já está cadastrado</condition>
+                    <response>Uma mensagem é exibida com o número da conta e seu saldo.</response>
+                </step>
+            </flow>
+        </useCase>
+    </feature>
+</phone>
