@@ -1,5 +1,5 @@
 # Projeto com teste de cobertura
-- banco-exemplo-interface-gerencia
+- banco-com-testes
 
 # Projetos com mutantes
 - banco-exemplo-interface-gerencia
