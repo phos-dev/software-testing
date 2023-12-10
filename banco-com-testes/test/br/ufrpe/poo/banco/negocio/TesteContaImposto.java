@@ -30,12 +30,10 @@ public class TesteContaImposto {
 		assertTrue( c.getSaldo() == 899.62);
 	}	
 	
-	@Test 
+	@Test(expected = SaldoInsuficienteException.class)
 	public void testeDebitarSaldoInsuficiente() throws SaldoInsuficienteException {
 		ContaImposto c = new ContaImposto("2",1000);
 		c.debitar(1200);
-		String saldoDepoisDebito = String.valueOf(c.getSaldo());//confere valor do saldo
-		assertTrue( saldoDepoisDebito, c.getSaldo() == 899.62);
 	}	
 
 	

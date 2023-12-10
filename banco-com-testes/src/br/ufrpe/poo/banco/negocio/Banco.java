@@ -96,11 +96,9 @@ public class Banco implements IGerencia, ICliente {
 	public void associarConta(String cpf, String numeroConta) throws ClienteJaPossuiContaException,
 			ContaJaAssociadaException, ClienteNaoCadastradoException, RepositorioException {
 		Cliente cliente = this.procurarCliente(cpf);
-
 		if (cliente != null) {
 			ContaAbstrata conta = procurarConta(numeroConta);
-	        
-			if (conta != null) {
+			if (conta == null) {
 				cliente.adicionarConta(numeroConta);
 				this.clientes.atualizar(cliente);
 			} else
@@ -113,12 +111,10 @@ public class Banco implements IGerencia, ICliente {
 	public void removerCliente(String cpf) throws RepositorioException, ClienteNaoCadastradoException,
 			ContaNaoEncontradaException, ClienteNaoPossuiContaException {
 		Cliente cliente = this.procurarCliente(cpf);
-
-		if(cliente == null) throw new ClienteNaoCadastradoException();
-		
 		int i = 0;
 		while (!cliente.getContas().isEmpty()) {
 			String numeroConta = cliente.consultarNumeroConta(i);
+			i++;
 			this.removerConta(cliente, numeroConta);
 		}
 		if (!this.clientes.remover(cpf))
@@ -129,48 +125,37 @@ public class Banco implements IGerencia, ICliente {
 	public void removerConta(Cliente cliente, String numeroConta)
 			throws RepositorioException, ContaNaoEncontradaException, ClienteNaoPossuiContaException {
 		cliente.removerConta(numeroConta);
-
 		if (!this.contas.remover(numeroConta))
 			throw new ContaNaoEncontradaException();
 		this.clientes.atualizar(cliente);
 	}
 
 	@Override
-	public void creditar(ContaAbstrata conta, double valor) throws RepositorioException, ValorInvalidoException, ContaNaoEncontradaException {
+	public void creditar(ContaAbstrata conta, double valor) throws RepositorioException, ValorInvalidoException {
 		if (valor < 0)
 			throw new ValorInvalidoException();
-		if (!this.contas.existe(conta.getNumero())) {
-			throw new ContaNaoEncontradaException();
-		}
 		conta.creditar(valor);
 	}
 
 	@Override
 	public void debitar(ContaAbstrata conta, double valor)
-			throws RepositorioException, SaldoInsuficienteException, ValorInvalidoException, ContaNaoEncontradaException {
+			throws RepositorioException, SaldoInsuficienteException, ValorInvalidoException {
 		if (valor < 0)
 			throw new ValorInvalidoException();
 		if(this.contas.existe(conta.getNumero())){
 			conta.debitar(valor);	
 			this.contas.atualizar(conta);
 		}
-		else {
-			throw new ContaNaoEncontradaException();
-		}
 	}
 
 	@Override
 	public void transferir(ContaAbstrata contaOrigem, ContaAbstrata contaDestino, double valor)
-			throws SaldoInsuficienteException, RepositorioException, ValorInvalidoException, ContaNaoEncontradaException {
-
+			throws SaldoInsuficienteException, RepositorioException, ValorInvalidoException {
 		if (this.contas.existe(contaOrigem.getNumero()) && this.contas.existe(contaDestino.getNumero())) {
 			this.debitar(contaOrigem, valor);
 			this.creditar(contaDestino, valor);
 			this.contas.atualizar(contaOrigem);
 			this.contas.atualizar(contaDestino);
-		}
-		else {
-			throw new ContaNaoEncontradaException();
 		}
 	}
 
